@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import './Pagination.css';
 
-const ITEMS_PER_PAGE = 5;
+export const ITEMS_PER_PAGE = 5;
 
 export default function Pagination({ totalItems, onChangePagination }) {
   const [currentPage, setCurrentPage] = useState(0);

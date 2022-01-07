@@ -2,18 +2,14 @@ import { useState, useEffect } from 'react';
 
 import useFetchChildren from '../../services/useFetchChildren';
 import Child from '../Child/Child';
-import Pagination from '../Pagination/Pagination';
+import Pagination, { ITEMS_PER_PAGE } from '../Pagination/Pagination';
 import './Children.css';
 
 function Children() {
   const children = useFetchChildren();
 
   const [startIndex, setStartIndex] = useState(0);
-  const [endIndex, setEndIndex] = useState(0);
-
-  useEffect(() => {
-    setEndIndex(children.length);
-  }, [children]);
+  const [endIndex, setEndIndex] = useState(ITEMS_PER_PAGE);
 
   function onChangePagination(startIndex, endIndex) {
     setStartIndex(startIndex);
