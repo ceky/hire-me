@@ -1,0 +1,21 @@
+.pagination-container {
+  margin: 1rem 2rem;
+  list-style-type: none;
+  display: flex;
+}
+
+.pagination-container li {
+  padding: 0.5rem 1rem;
+  margin-right: 0.5rem;
+  cursor: pointer;
+
+  transition: background-color 0.3s;
+  border: 1px solid #ddd;
+}
+
+.active {
+  font-weight: bold;
+  background-color: #4caf50;
+  color: white;
+  border: 1px solid #4caf50;
+}

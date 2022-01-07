@@ -1,74 +1,38 @@
-# Interested in working for Famly?
+### Installation guide
 
-Give us a chance to see your beautiful code! 🤩
+1. Install the dependencies
+   `npm install`
 
-How to get started:
-- Fork this repository
-- Create a small application in React (or another agreed upon framework)
-- Describe your design decisions and setup instructions in the README.md of the forked repository
+2. Run the project locally
+   `npm run dev`
 
-The application should be able to do 3 things:
-1. List children with some form of pagination/lazy-loading/infinite-scroll
-2. Checkin a child
-3. Checkout a child
+And open the page on http://localhost:3000/
 
-There are no other requirements than that—don't worry about design or anything like that.
+3. Build the project for production use
+   `npm run build`
 
-If you have any questions feel free to reach out to ckl@famly.co (Christian) or ab@famly.co (Adam) ☺️
+### Delpoyment
 
-## API Specification
+The application has been deployed on the following url [https://famly-checkin.surge.sh/](https://famly-checkin.surge.sh/)
 
-You will receive an access token in an email during the recruiment process.
+If routing doesn't work in production, in the /dist folder try `cp index.html 200.html`
 
-### Fetch some children from
+---
 
-The API does not support any limit or offset, so the pagination/lazy-loading/infinite-scroll will have to be done client-side only.
+### Design decisions
 
-```
-GET https://app.famly.co/api/daycare/tablet/group
-Arguments: {
-	accessToken: <accessToken>,
-	groupId: '86413ecf-01a1-44da-ba73-1aeda212a196',
-	institutionId: 'dc4bd858-9e9c-4df7-9386-0d91e42280eb'
-}
-```
+I used [Vite](https://vitejs.dev/) to build the application initially. This gave me a dev server with hot module replacement. Also it created the package.json with a React dependency.
 
-Example in cURL:
+The application is build with React 17 and is using hooks.
 
-```bash
-curl "https://app.famly.co/api/daycare/tablet/group?accessToken=<accessToken>&groupId=86413ecf-01a1-44da-ba73-1aeda212a196&institutionId=dc4bd858-9e9c-4df7-9386-0d91e42280eb"
-```
+In order to connect to the server to get the data and make the checkin and checkout operations I used `axios`. Also the token is stored in `.env` file, which was added in the .gitignore as well to keep it private.
 
-### Checkin child
-```
-POST https://app.famly.co/api/v2/children/<childId>/checkins
+For fetching the initial list of children I createad a custom react hook. And for checking in and out a child I used `async / await`.
 
-Arguments: {
-	accessToken: <accessToken>
-	pickupTime: 16:00
-}
-```
+We have 3 components:
 
-Example in cURL:
+1. `Children` - is where we make use of the custom hook created to fetch the children. Based on that list it creates a `Child` component. Here we also include the `Pagination` component and we are updated when the page changes, so that we know to rerender the list of children, based on the page index.
 
-```bash
-curl \
-  -d 'accessToken=<accessToken>&pickupTime=16:00' \
-  https://app.famly.co/api/v2/children/fcd683d0-bc31-468c-948f-1ca70b91439d/checkins
-```
+2. `Child` - is where we receive the `child` property as props and we destructure it to use only the properties we're interested in. This component is the one that is controlling the checkin and checkout actions.
 
-### Checkout child
-```
-POST https://app.famly.co/api/v2/children/<childId>/checkout
-Arguments: {
-	accessToken: <accessToken>
-}
-```
-
-Example in cURL:
-
-```bash
-curl \
-  -d 'accessToken=<accessToken>' \
-  https://app.famly.co/api/v2/children/fcd683d0-bc31-468c-948f-1ca70b91439d/checkout
-```
+3. `Paginatiom` - We build the pagination here and when the page changes we update the start and the end index that we are then passing to the `Children` component to update accordingly.
