@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 import useFetchChildren from '../../services/useFetchChildren';
 import Child from '../Child/Child';
@@ -26,7 +26,7 @@ function Children() {
       />
 
       <ul>
-        {!!children.length &&
+        {children.length > 0 &&
           children.slice(startIndex, endIndex).map((child, key) => (
             <li key={key}>
               <Child child={child} />

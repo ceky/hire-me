@@ -1,3 +1,7 @@
+### About
+
+Fetch a list of children using custom hooks, that we can the check in and out from nursery. Display the list of children with pagination.
+
 ### Installation guide
 
 1. Install the dependencies
@@ -11,7 +15,7 @@ And open the page on http://localhost:3000/
 3. Build the project for production use
    `npm run build`
 
-### Delpoyment
+### Deployment
 
 The application has been deployed on the following url [https://famly-checkin.surge.sh/](https://famly-checkin.surge.sh/)
 
@@ -35,4 +39,4 @@ We have 3 components:
 
 2. `Child` - is where we receive the `child` property as props and we destructure it to use only the properties we're interested in. This component is the one that is controlling the checkin and checkout actions.
 
-3. `Paginatiom` - We build the pagination here and when the page changes we update the start and the end index that we are then passing to the `Children` component to update accordingly.
+3. `Pagination` - We build the pagination here and when the page changes we update the start and the end index that we are then passing to the `Children` component to update accordingly.

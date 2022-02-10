@@ -9,9 +9,9 @@ export default function Pagination({ totalItems, onChangePagination }) {
 
   useEffect(() => {
     if (totalItems % ITEMS_PER_PAGE === 0) {
-      setTotalPageNumber(parseInt(totalItems / ITEMS_PER_PAGE));
+      setTotalPageNumber(totalItems / ITEMS_PER_PAGE);
     } else {
-      setTotalPageNumber(parseInt(totalItems / ITEMS_PER_PAGE) + 1);
+      setTotalPageNumber(totalItems / ITEMS_PER_PAGE + 1);
     }
   }, [totalItems]);
 
